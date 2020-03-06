@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GX.StateMachineSystem;
 
 namespace GX.MotorSystem
 {
@@ -10,21 +11,10 @@ namespace GX.MotorSystem
         public Anim[] conditions;
 
 
-        public override void OnStateEnter(Motor motor)
+        protected override void OnState(SMClient c)
         {
-            PlayConditions(motor);
+            PlayConditions(motor[c]);
         }
-
-        public override void OnStateExit(Motor motor)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void ProcessMovement(Motor motor)
-        {
-            
-        }
-
 
         protected virtual void PlayConditions(Motor motor)
         {

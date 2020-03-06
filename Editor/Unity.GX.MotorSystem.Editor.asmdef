@@ -1,0 +1,28 @@
+{
+    "name": "Unity.GX.MotorSystem.Editor",
+    "references": [
+        "GUID:db16fd4ddf3686a4fbc6045e616aa458"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.gx.statemachinesystem",
+            "expression": "0.0.0",
+            "define": "STATE_MACHINE_SYSTEM"
+        },
+        {
+            "name": "com.gx.varsystem",
+            "expression": "0.0.0",
+            "define": "VARIABLE_SYSTEM"
+        }
+    ],
+    "noEngineReferences": false
+}

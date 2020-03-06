@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GX.StateMachineSystem;
 
 namespace GX.MotorSystem
 {
@@ -22,29 +23,24 @@ namespace GX.MotorSystem
         public bool ignorePrevVel;
 
         
-        public override void ProcessMovement(Motor motor)
+        protected override void OnState(SMClient c)
         {
-            float vel = motor.velocity.magnitude / Time.fixedDeltaTime;
+            float vel = motor[c].velocity.magnitude / Time.fixedDeltaTime;
             float crrMinVel = (!ignorePrevVel && vel < minVel) ? vel : minVel;
             float crrMaxVel = (!ignorePrevVel && vel > maxVel) ? vel : maxVel;
 
             Vector3 velDes;
-            if (motor.input != Vector3.zero) velDes = motor.input * crrMaxVel;
-            else if(motor.velocity != Vector3.zero) velDes = motor.velocity.normalized * crrMinVel;
-            else velDes = motor.lookDir * crrMinVel;
+            if (motor[c].input != Vector3.zero) velDes = motor[c].input * crrMaxVel;
+            else if(motor[c].velocity != Vector3.zero) velDes = motor[c].velocity.normalized * crrMinVel;
+            else velDes = motor[c].lookDir * crrMinVel;
 
-            motor.velocity = MotorUtil.MovUniVar(motor.velocity, velDes, crrMinVel, crrMaxVel, minAcel, maxAcel);
+            motor[c].velocity = MotorUtil.MovUniVar(motor[c].velocity, velDes, crrMinVel, crrMaxVel, minAcel, maxAcel);
         }
 
 
-        public override void OnStateEnter(Motor motor)
+        public override void OnStateEnter(SMClient c)
         {
-            MotorUtil.NavAgent(motor, this);
-        }
-
-        public override void OnStateExit(Motor motor)
-        {
-            throw new System.NotImplementedException();
+            MotorUtil.NavAgent(motor[c], this);
         }
     }
 }
